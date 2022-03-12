@@ -1,11 +1,10 @@
-import { Switch, Route } from 'react-router-dom';
+import Dashboard from "../pages/Dashboard"
+import { Navigate, Route, Routes } from "react-router-dom"
 
-import Dashboard from '../pages/Dashboard';
-
-const Routes = () => (
-  <Switch>
-    <Route path="/" exact component={Dashboard} />
-  </Switch>
-);
-
-export default Routes;
+export const RoutesComponent = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Dashboard />} />
+    </Routes>
+  )
+}
