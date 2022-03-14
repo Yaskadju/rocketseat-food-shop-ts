@@ -1,28 +1,28 @@
-import { Component } from "react"
+import {  useEffect, useState } from "react"
 
+import { Food as FoodType } from '../../Types/Food'
 import Header from "../../components/Header"
 import api from "../../services/api"
-import Food from "../../components/Food"
+
 import ModalAddFood from "../../components/ModalAddFood"
 import ModalEditFood from "../../components/ModalEditFood"
 import { FoodsContainer } from "./styles"
 
-class Dashboard extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      foods: [],
-      editingFood: {},
-      modalOpen: false,
-      editModalOpen: false
-    }
-  }
+const Dashboard = (): JSX.Element => {
+  const [foods, setFoods] = useState<FoodType[]>()
+  const [editingFood, setEditingFood] = useState({})
+  const [modalOpen, setModalOpen] = useState(false)
+  const [editModalOpen, setEditModalOpen] = useState(false)
 
-  async componentDidMount() {
-    const response = await api.get("/foods")
-    console.dir({ response })
-    this.setState({ foods: response.data })
-  }
+  useEffect(() => {
+    async function getFood() {
+      const response = await api.get<FoodType[]>('/foods')
+
+      setFoods(response.data)
+    }
+
+    getFood()
+  }, [])
 
   handleAddFood = async food => {
     const { foods } = this.state
