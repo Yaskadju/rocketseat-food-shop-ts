@@ -1,4 +1,4 @@
-import { Component, useState } from "react"
+import { Component, useEffect, useState } from "react"
 import { FiEdit3, FiTrash } from "react-icons/fi"
 
 import { Food as FoodType } from "../../Types/Food"
@@ -12,7 +12,7 @@ type FoodProps = {
 }
 
 const Food = ({ food, handleDelete, handleEditFood }: FoodProps): JSX.Element => {
-  const [isAvailable, setIsAvailable] = useState(!!food)
+  const [isAvailable, setIsAvailable] = useState(food.available)
 
   const toggleAvailable = async () => {
     await api.put(`/foods/${food.id}`, {
